@@ -30,7 +30,7 @@ $('.container').on('mouseenter', function(){
 })
 function bindEvent(){
 
-  $('#buttonWrapper').on('click', function(e){//点击里面的按钮才会触发，点击buttonwrapper不会
+  $('#buttonWrapper').on('click','button' function(e){//点击里面的按钮才会触发，点击buttonwrapper不会
         let $button = $(e.currentTarget)//获取到这个按钮
         let index = $button.index()//获取这个按钮处于第几个
         goToSlide(index)
@@ -38,7 +38,7 @@ function bindEvent(){
 }
 //重要一步
 function goToSlide(index){
-  if(index>$buttons.length-1){
+  if(index > $buttons.length-1){
     index = 0
   }else if(index <0){
     index = $buttons.length - 1
@@ -51,9 +51,15 @@ function goToSlide(index){
         $slides.hide().offset()
         $slides.css({transform:`translateX(${-(index+1)*400}px)`}).show()
       })
+  }else if(current === 0 &&index === $buttons.length - 1){
+    $slides.css({transform:`translateX(0px)`})
+      .one('transitionend', funtion(){
+           $slides.hide().offset()
+        $slides.css({transform:`translateX(${-(index+1)*400}px)`}).show()
   }else{
-    $slides.css({transform:`translateX(${-(index+1)*400}px)`})
+    $slides.css({transform:`translateX(${- (index+1) * 400}px)`})
   }
+    
   current = index
 }
 function makeFakeSlides(){
